@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api/auth', // your backend base URL
+  baseURL: 'https://full-stack-postgressql-gui-3.onrender.com/api/auth', // your backend base URL
 });
 
 // Add a request interceptor to inject token
