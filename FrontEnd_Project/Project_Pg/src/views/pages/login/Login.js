@@ -39,7 +39,6 @@ const handleLogin = async (e) => {
   }
 
   try {
-    
     const res = await axiosInstance.post('/login', {
       email,
       password,
