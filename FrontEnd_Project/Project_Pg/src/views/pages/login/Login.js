@@ -15,7 +15,7 @@ import {
   CSpinner,
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
-import axiosInstance from '../../baseURL' // ✅ Import your custom axios instance
+import axiosInstance from '../../../baseURL'; // ✅ Import your custom axios instance
 
 const Login = () => {
   const [email, setEmail] = useState('');
