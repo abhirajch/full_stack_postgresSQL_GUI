@@ -4,7 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  user : "postgres",
+  password : "Abhiraj@123",
+  port: 5432,
+  database: "Project_Pg",
+  host: "localhost",
   ssl: false // 🔴 This disables SSL
 });
 
