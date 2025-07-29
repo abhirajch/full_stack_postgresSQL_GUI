@@ -15,6 +15,7 @@ import {
   CSpinner,
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
+import axiosInstance from '../../baseURL' // ✅ Import your custom axios instance
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -26,49 +27,49 @@ const Login = () => {
   localStorage.removeItem('authToken');
   localStorage.removeItem('type');
 }, []);
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setError('');
+  setLoading(true);
 
-    if (!email || !password) {
-      setError('Please enter both email and password');
-      setLoading(false);
-      return;
-    }
+  if (!email || !password) {
+    setError('Please enter both email and password');
+    setLoading(false);
+    return;
+  }
 
-    try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const res = await axiosInstance.post('/login', {
+      email,
+      password,
+    });
 
-      const data = await res.json();
+    const data = res.data;
 
-      if (res.ok && data.token) {
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('type', data.user.type);
+    if (data.token) {
+      localStorage.setItem('authToken', data.token);
+      localStorage.setItem('type', data.user.type);
 
-        // Optional: log user type to console
-        console.log(data.user.type);
+      console.log(data.user.type);
 
-        // Redirect based on user type
-        if (data.user.type === 'Non-Technical') {
-          navigate('/dashboard');
-        } else {
-          navigate('/technical-dashboard');
-        }
+      if (data.user.type === 'Non-Technical') {
+        navigate('/dashboard');
       } else {
-        setError(data.error || 'Invalid credentials');
+        navigate('/technical-dashboard');
       }
-    } catch (err) {
-      console.error('Login Error:', err);
-      setError('Server error. Please try again later.');
-    } finally {
-      setLoading(false);
+    } else {
+      setError(data.error || 'Invalid credentials');
     }
-  };
+  } catch (err) {
+    console.error('Login Error:', err);
+    setError(
+      err.response?.data?.error || 'Server error. Please try again later.'
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
