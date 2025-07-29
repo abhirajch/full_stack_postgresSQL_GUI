@@ -13,10 +13,9 @@ dotenv.config()
 
 const app = express()
 app.use(cors({
-  origin: 'https://full-stack-postgres-sql-gui-kn5d.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
-}))
+  origin: '*', // or specify your frontend URL
+  credentials: true
+}));
 app.use(express.json())
 
 app.use('/api/auth', authRoutes);
