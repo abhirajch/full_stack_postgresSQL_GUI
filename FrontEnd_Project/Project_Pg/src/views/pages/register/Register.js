@@ -14,6 +14,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useNavigate, Link } from 'react-router-dom'
+import axiosInstance from '../../../baseURL';
 
 const Register = () => {
   const [email, setEmail] = useState('')
@@ -23,33 +24,34 @@ const Register = () => {
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
-  const handleRegister = async (e) => {
-    e.preventDefault()
+const handleRegister = async (e) => {
+  e.preventDefault()
 
-    if (password !== repeatPassword) {
-      return setError("Passwords don't match")
+  if (password !== repeatPassword) {
+    return setError("Passwords don't match")
+  }
+
+  try {
+    const res = await axiosInstance.post('/api/auth/register', {
+      email,
+      password,
+      type,
+    })
+
+    if (res.status === 200 || res.status === 201) {
+      alert('Registration successful! Please login.')
+      navigate('/login')
     }
-
-    try {
-      const res = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify({ email, password, type }),
-      })
-
-      const data = await res.json()
-
-      if (res.ok) {
-        alert('Registration successful! Please login.')
-        navigate('/login')
-      } else {
-        setError(data.error || 'Registration failed')
-      }
-    } catch (err) {
-      console.error(err)
+  } catch (err) {
+    console.error(err)
+    if (err.response && err.response.data?.error) {
+      setError(err.response.data.error)
+    } else {
       setError('Server error. Try again later.')
     }
   }
+}
+
 
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
