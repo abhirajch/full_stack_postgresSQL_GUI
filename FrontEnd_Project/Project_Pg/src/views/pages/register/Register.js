@@ -32,7 +32,7 @@ const handleRegister = async (e) => {
   }
 
   try {
-    const res = await axiosInstance.post('/api/auth/register', {
+    const res = await axiosInstance.post('/register', {
       email,
       password,
       type,
