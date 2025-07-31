@@ -27,10 +27,12 @@ const AppHeaderDropdown = () => {
   const handleProfile = ()=>{
     navigate('/profile')
   }
+  const name = localStorage.getItem("full_name")
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
         <CAvatar src={avatar8} size="md" />
+        <p>{name}</p>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>

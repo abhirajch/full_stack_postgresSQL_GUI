@@ -77,17 +77,6 @@ const Profile = () => {
                                     />
                                 </CCol>
                             </CRow>
-                            {/* <h2 className="mb-2 fw-bold">{profile.full_name || 'Full Name'}</h2>
-
-              <div className="mb-2">
-                <span className="text-secondary fs-5">📧 {profile.email || 'Email'}</span>
-              </div>
-
-              <div>
-                <span className="badge bg-primary text-uppercase fs-6 px-3 py-2">
-                  {profile.type || 'Type'}
-                </span>
-              </div> */}
                         </CCardBody>
                     </CCard>
                 </CCol>
