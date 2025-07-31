@@ -30,7 +30,7 @@ const AppHeaderDropdown = () => {
   }
     useEffect(() => {
     const storedName = localStorage.getItem("full_name")
-    if (storedName) {
+    if (storedName != null) {
       setName(storedName)
     }
   }, [])
