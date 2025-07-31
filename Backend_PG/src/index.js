@@ -25,7 +25,6 @@ app.use('/api/auth', techDatabase)
 app.use('/api/auth', techTable)
 app.use('/api/auth', TechTableRoutes)
 
-
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`)

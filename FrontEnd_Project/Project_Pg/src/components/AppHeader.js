@@ -31,6 +31,7 @@ import { AppHeaderDropdown } from './header/index'
 const AppHeader = () => {
   const headerRef = useRef()
   const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
+  const type = localStorage.getItem("type")
 
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
@@ -53,9 +54,16 @@ const AppHeader = () => {
         </CHeaderToggler>
         <CHeaderNav className="d-none d-md-flex">
           <CNavItem>
-            <CNavLink to="/dashboard" as={NavLink}>
+            {type === "Non-Technical"
+            ?
+             <CNavLink to="/dashboard" as={NavLink}>
+              Dashboard
+            </CNavLink>: 
+             <CNavLink to="/technical-dashboard" as={NavLink}>
               Dashboard
             </CNavLink>
+            }
+           
           </CNavItem>
           <CNavItem>
             <CNavLink href="#">Users</CNavLink>

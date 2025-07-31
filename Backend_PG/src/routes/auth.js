@@ -8,7 +8,7 @@ const JWT_SECRET = 'your_super_secret_key' // Ideally store this in an .env file
 
 // REGISTER
 router.post('/register', async (req, res) => {
-  const { email, password, type } = req.body
+  const {fullname, email, password, type } = req.body
   if (!email || !password || !type) {
     return res.status(400).json({ error: 'Email, password, and type are required' })
   }
@@ -20,13 +20,13 @@ router.post('/register', async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10)
     const result = await pool.query(
-      'INSERT INTO users (email, password, type) VALUES ($1, $2, $3) RETURNING *',
-      [email, hashedPassword, type]
+      'INSERT INTO users (email, password, type, full_name) VALUES ($1, $2, $3, $4) RETURNING *',
+      [email, hashedPassword, type, fullname]
     )
     const user = result.rows[0]
     res.status(201).json({
       message: 'User registered successfully',
-      user: { id: user.id, email: user.email, type: user.type }
+      user: { id: user.id, email: user.email, type: user.type, full_name : user.full_name }
     })
   } catch (err) {
     res.status(500).json({ error: 'Database error: ' + err.message })

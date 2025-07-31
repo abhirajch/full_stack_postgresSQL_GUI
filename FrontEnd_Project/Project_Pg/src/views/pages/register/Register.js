@@ -18,39 +18,41 @@ import axiosInstance from '../../../baseURL';
 
 const Register = () => {
   const [email, setEmail] = useState('')
+  const [fullname, setFullname] = useState('')
   const [password, setPassword] = useState('')
   const [type, setType] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
-const handleRegister = async (e) => {
-  e.preventDefault()
+  const handleRegister = async (e) => {
+    e.preventDefault()
 
-  if (password !== repeatPassword) {
-    return setError("Passwords don't match")
-  }
-
-  try {
-    const res = await axiosInstance.post('/register', {
-      email,
-      password,
-      type,
-    })
-
-    if (res.status === 200 || res.status === 201) {
-      alert('Registration successful! Please login.')
-      navigate('/login')
+    if (password !== repeatPassword) {
+      return setError("Passwords don't match")
     }
-  } catch (err) {
-    console.error(err)
-    if (err.response && err.response.data?.error) {
-      setError(err.response.data.error)
-    } else {
-      setError('Server error. Try again later.')
+
+    try {
+      const res = await axiosInstance.post('/register', {
+        fullname,
+        email,
+        password,
+        type,
+      })
+
+      if (res.status === 200 || res.status === 201) {
+        alert('Registration successful! Please login.')
+        navigate('/login')
+      }
+    } catch (err) {
+      console.error(err)
+      if (err.response && err.response.data?.error) {
+        setError(err.response.data.error)
+      } else {
+        setError('Server error. Try again later.')
+      }
     }
   }
-}
 
 
   return (
@@ -65,16 +67,27 @@ const handleRegister = async (e) => {
                   <p className="text-body-secondary">Create your account</p>
 
                   {error && <p style={{ color: 'red' }}>{error}</p>}
-
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
                     <CFormInput
                       placeholder="Username"
+                      value={fullname}
+                      onChange={(e) => setFullname(e.target.value)}
+                      autoComplete="username"
+                      required
+                    />
+                  </CInputGroup>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>
+                      <CIcon icon={cilUser} />
+                    </CInputGroupText>
+                    <CFormInput
+                      placeholder="User Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      autoComplete="username"
+                      autoComplete="UserEmail"
                       required
                     />
                   </CInputGroup>
