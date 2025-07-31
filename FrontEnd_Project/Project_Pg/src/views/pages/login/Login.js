@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   CButton,
@@ -23,52 +23,52 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
- useEffect(() => {
-  localStorage.removeItem('authToken');
-  localStorage.removeItem('type');
-}, []);
-const handleLogin = async (e) => {
-  e.preventDefault();
-  setError('');
-  setLoading(true);
+  useEffect(() => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('type');
+  }, []);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
 
-  if (!email || !password) {
-    setError('Please enter both email and password');
-    setLoading(false);
-    return;
-  }
-
-  try {
-    const res = await axiosInstance.post('/login', {
-      email,
-      password,
-    });
-
-    const data = res.data;
-
-    if (data.token) {
-      localStorage.setItem('authToken', data.token);
-      localStorage.setItem('type', data.user.type);
-
-      console.log(data.user.type);
-
-      if (data.user.type === 'Non-Technical') {
-        navigate('/dashboard');
-      } else {
-        navigate('/technical-dashboard');
-      }
-    } else {
-      setError(data.error || 'Invalid credentials');
+    if (!email || !password) {
+      setError('Please enter both email and password');
+      setLoading(false);
+      return;
     }
-  } catch (err) {
-    console.error('Login Error:', err);
-    setError(
-      err.response?.data?.error || 'Server error. Please try again later.'
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+
+    try {
+      const res = await axiosInstance.post('/login', {
+        email,
+        password,
+      });
+
+      const data = res.data;
+      console.log(data)
+      if (data.token) {
+        localStorage.setItem('authToken', data.token);
+        localStorage.setItem('type', data.user.type);
+
+        console.log(data.user.type);
+
+        if (data.user.type === 'Non-Technical') {
+          navigate('/dashboard');
+        } else {
+          navigate('/technical-dashboard');
+        }
+      } else {
+        setError(data.error || 'Invalid credentials');
+      }
+    } catch (err) {
+      console.error('Login Error:', err);
+      setError(
+        err.response?.data?.error || 'Server error. Please try again later.'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   return (
@@ -86,11 +86,11 @@ const handleLogin = async (e) => {
                     {error && <CAlert color="danger">{error}</CAlert>}
 
                     <div className="mb-3">
-                      <CFormLabel htmlFor="email">Email</CFormLabel>
+                      <CFormLabel htmlFor="email">Email or Username</CFormLabel>
                       <CFormInput
-                        type="email"
+                        type="text"
                         id="email"
-                        placeholder="Enter your email"
+                        placeholder="Enter your email or username"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required

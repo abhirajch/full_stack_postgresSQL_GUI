@@ -35,29 +35,45 @@ router.post('/register', async (req, res) => {
 
 // LOGIN
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body
+  const { email, password } = req.body; // `email` can be either email or full_name
+
   if (!email || !password) {
-    return res.status(400).json({ error: 'Email and password are required' })
+    return res.status(400).json({ error: 'Email/Username and password are required' });
   }
+
   try {
-    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email])
-    const user = result.rows[0]
-    if (!user) return res.status(401).json({ error: 'User not found' })
-    const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' })
+    // Look for user by email or full_name
+    const result = await pool.query(
+      'SELECT * FROM users WHERE email = $1 OR full_name = $1',
+      [email]
+    );
+
+    const user = result.rows[0];
+    if (!user) return res.status(401).json({ error: 'User not found' });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
+
     const token = jwt.sign(
       { id: user.id, email: user.email, type: user.type },
       JWT_SECRET,
       { expiresIn: '12h' }
-    )
+    );
+
     res.status(200).json({
       message: 'Login successful',
       token,
-      user: { id: user.id, email: user.email, type: user.type }
-    })
+      user: {
+        id: user.id,
+        email: user.email,
+        full_name: user.full_name,
+        type: user.type,
+      },
+    });
   } catch (err) {
-    res.status(500).json({ error: 'Server error: ' + err.message })
+    res.status(500).json({ error: 'Server error: ' + err.message });
   }
-})
+});
+
 
 export default router
