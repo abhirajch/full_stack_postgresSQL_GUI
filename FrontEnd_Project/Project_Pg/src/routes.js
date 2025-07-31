@@ -57,6 +57,8 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
+const Profile = React.lazy(() => import('./views/pages/Profile/Profile'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -66,6 +68,7 @@ const routes = [
   { path: '/create-database', name: 'Create Database', element: CreateDatabase },
   { path: '/database-table', name: 'Database Table', element: DatabaseTable },
   { path: '/table/:tableName', name: 'TableManager', element: TableManager },
+  { path: '/profile', name: 'Profile', element: Profile },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

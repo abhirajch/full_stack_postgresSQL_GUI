@@ -23,6 +23,10 @@ const AppHeaderDropdown = () => {
     localStorage.removeItem('authToken')
     navigate('/login') 
   }
+
+  const handleProfile = ()=>{
+    navigate('/profile')
+  }
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
@@ -31,7 +35,7 @@ const AppHeaderDropdown = () => {
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
         <CDropdownItem href="#">
-          <CIcon icon={cilUser} className="me-2" />
+          <CIcon icon={cilUser} className="me-2" onClick={handleProfile}/>
           Profile
         </CDropdownItem>
         <CDropdownItem href="#">
