@@ -82,40 +82,7 @@ router.get('/databasql/tablesses/:dbname', authenticateToken, async (req, res) =
   }
 })
 
-// Delete database entry and related table
-router.delete('/sql/databases/:datname', authenticateToken, async (req, res) => {
-  const userId = req.user.id
-  const { datname } = req.params
 
-  try {
-    // Get database_id (or related table name if stored)
-    const result = await pool.query(
-      'SELECT id FROM user_databases_tech WHERE user_id = $1 AND datname = $2',
-      [userId, datname]
-    )
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'Database not found' })
-    }
-
-    const dbId = result.rows[0].id
-    const tableName = `data_${dbId}` // Assuming your table is named like this
-
-    // Delete the table
-    await pool.query(`DROP TABLE IF EXISTS ${tableName}`)
-
-    // Delete the metadata entry
-    await pool.query(
-      'DELETE FROM user_databases_tech WHERE id = $1',
-      [dbId]
-    )
-
-    res.json({ message: 'Database and table deleted successfully' })
-  } catch (err) {
-    console.error(err)
-    res.status(500).json({ error: 'Error deleting database' })
-  }
-})
 
 
 
