@@ -1,11 +1,11 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
-  cilDrop,
-  cilPencil,
   cilSpeedometer,
+  cilUser,
+  cilList, 
 } from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { CNavItem } from '@coreui/react'
 
 const type = localStorage.getItem("type")
 
@@ -14,13 +14,26 @@ const dashboardNavItem = {
   name: 'Dashboard',
   to: type === 'Technical' ? '/technical-dashboard' : '/dashboard',
   icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-  badge: {
-    color: 'info',
-  },
+}
+
+const profileNavItem = {
+  component: CNavItem,
+  name: 'Profile',
+  to: '/profile',
+  icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+}
+
+const tableNavItem = {
+  component: CNavItem,
+  name: 'Table',
+  to: type === 'Technical' ? '/technical-table' : '/database-table',
+  icon: <CIcon icon={cilList} customClassName="nav-icon" />,
 }
 
 const _nav = [
   dashboardNavItem,
+  profileNavItem,
+  tableNavItem,
 ]
 
 export default _nav
