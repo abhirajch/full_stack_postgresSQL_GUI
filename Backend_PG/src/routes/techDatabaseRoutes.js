@@ -13,6 +13,8 @@ router.get('/sql/databases', authenticateToken, async (req, res) => {
       [userId]
     )
     res.json({ rows: result.rows })
+    const result2 = await pool.query(`SELECT * FROM user_databases_tech`)
+      console.log(result2)
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Failed to fetch user databases' })
