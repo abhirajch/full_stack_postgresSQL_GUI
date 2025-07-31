@@ -56,10 +56,10 @@ router.delete('/sql/databases/:datname', authenticateToken, async (req, res) => 
     }
 
     const dbId = result.rows[0].id
-    const tableName = `data_${dbId}` // Assuming your table is named like this
+    // const tableName = `data_${dbId}` // Assuming your table is named like this
 
-    // Delete the table
-    await pool.query(`DROP TABLE IF EXISTS ${tableName}`)
+    // // Delete the table
+    // await pool.query(`DROP TABLE IF EXISTS ${tableName}`)
 
     // Delete the metadata entry
     await pool.query(
