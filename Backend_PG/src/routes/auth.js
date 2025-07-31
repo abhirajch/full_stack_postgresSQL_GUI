@@ -8,7 +8,7 @@ const JWT_SECRET = 'your_super_secret_key' // Ideally store this in an .env file
 
 // REGISTER
 router.post('/register', async (req, res) => {
-  const {fullname, email, password, type } = req.body
+  const { fullname, email, password, type } = req.body
   if (!email || !password || !type) {
     return res.status(400).json({ error: 'Email, password, and type are required' })
   }
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
     const user = result.rows[0]
     res.status(201).json({
       message: 'User registered successfully',
-      user: { id: user.id, email: user.email, type: user.type, full_name : user.full_name }
+      user: { id: user.id, email: user.email, type: user.type, full_name: user.full_name }
     })
   } catch (err) {
     res.status(500).json({ error: 'Database error: ' + err.message })
@@ -41,11 +41,10 @@ router.post('/login', async (req, res) => {
     return res.status(400).json({ error: 'Email/Username and password are required' });
   }
 
-  try {
-    // Look for user by email or full_name
+ try {
     const result = await pool.query(
-      'SELECT * FROM users WHERE email = $1 OR full_name = $1',
-      [email]
+      'SELECT * FROM users WHERE LOWER(email) = LOWER($1) OR LOWER(full_name) = LOWER($1)',
+      [email.trim()]
     );
 
     const user = result.rows[0];
