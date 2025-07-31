@@ -34,7 +34,7 @@ const AppHeaderDropdown = () => {
         <CAvatar src={avatar8} size="md" />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">{name ? name : "User"}</CDropdownHeader>
+        <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">{name != null ? name : "User"}</CDropdownHeader>
         <CDropdownItem  onClick={handleProfile}>
           <CIcon icon={cilUser} className="me-2"/>
           Profile
