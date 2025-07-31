@@ -30,7 +30,7 @@ router.post('/sql/execute', authenticateToken, async (req, res) => {
   }
   const dbName = dbNameMatch[1]
   try {
-    await pool.query(query) // Create DB
+    // await pool.query(query) // Create DB
     await pool.query(
       'INSERT INTO user_databases_tech (user_id, datname) VALUES ($1, $2)',
       [userId, dbName]
