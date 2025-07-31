@@ -26,6 +26,8 @@ const Login = () => {
   useEffect(() => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('type');
+    localStorage.removeItem('email');
+    localStorage.removeItem('full_name');
   }, []);
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -49,7 +51,8 @@ const Login = () => {
       if (data.token) {
         localStorage.setItem('authToken', data.token);
         localStorage.setItem('type', data.user.type);
-
+        localStorage.setItem('email', data.user.email);
+        localStorage.setItem('full_name', data.user.full_name);
         console.log(data.user.type);
 
         if (data.user.type === 'Non-Technical') {
