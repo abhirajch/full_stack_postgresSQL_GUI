@@ -23,17 +23,10 @@ const profileNavItem = {
   icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
 }
 
-const tableNavItem = {
-  component: CNavItem,
-  name: 'Table',
-  to: type === 'Technical' ? '/technical-table' : '/database-table',
-  icon: <CIcon icon={cilList} customClassName="nav-icon" />,
-}
 
 const _nav = [
   dashboardNavItem,
   profileNavItem,
-  tableNavItem,
 ]
 
 export default _nav
