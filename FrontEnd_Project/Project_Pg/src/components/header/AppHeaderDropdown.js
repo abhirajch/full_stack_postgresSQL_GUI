@@ -36,7 +36,7 @@ const AppHeaderDropdown = () => {
         <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
         <CDropdownItem  onClick={handleProfile}>
           <CIcon icon={cilUser} className="me-2"/>
-          Profile
+          Profileeee
         </CDropdownItem>
         <CDropdownItem href="#">
           <CIcon icon={cilSettings} className="me-2" />
