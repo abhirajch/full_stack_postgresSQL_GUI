@@ -52,6 +52,7 @@ const AppHeaderDropdown = () => {
         <CDropdownDivider />
         <CDropdownItem
           onClick={handleLogout}
+          style={{cursor : "pointer"}}
         >
           <CIcon icon={cilLockLocked} className="me-2" />
           Log Out
