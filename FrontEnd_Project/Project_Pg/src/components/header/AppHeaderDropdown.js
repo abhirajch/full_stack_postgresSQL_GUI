@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   CAvatar,
   CDropdown,
@@ -22,13 +22,13 @@ const AppHeaderDropdown = () => {
   const [name, setName] = useState('User')
   const handleLogout = () => {
     localStorage.removeItem('authToken')
-    navigate('/login') 
+    navigate('/login')
   }
 
-  const handleProfile = ()=>{
+  const handleProfile = () => {
     navigate('/profile')
   }
-    useEffect(() => {
+  useEffect(() => {
     const storedName = localStorage.getItem("full_name")
     if (storedName != null) {
       setName(storedName)
@@ -41,8 +41,8 @@ const AppHeaderDropdown = () => {
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">{name}</CDropdownHeader>
-        <CDropdownItem  onClick={handleProfile}>
-          <CIcon icon={cilUser} className="me-2"/>
+        <CDropdownItem onClick={handleProfile} style={{cursor : "pointer"}}>
+          <CIcon icon={cilUser} className="me-2" />
           Profile
         </CDropdownItem>
         <CDropdownItem href="#">
