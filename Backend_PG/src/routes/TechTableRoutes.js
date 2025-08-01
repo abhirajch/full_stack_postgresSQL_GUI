@@ -13,7 +13,6 @@ router.get('/:dbName/:tableName/rows', authenticateToken, async (req, res) => {
   }
   try {
     const client = await pool.connect();
-    // ✅ Select all columns except dbname
     const query = `SELECT * FROM "${tableName}" WHERE dbname = $1`;
     const result = await client.query(query, [dbname]);
     const rowsWithoutDbname = result.rows.map(({ dbname, ...rest }) => rest); 
