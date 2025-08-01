@@ -16,9 +16,8 @@ import {
   CModalFooter,
   CFormInput,
 } from '@coreui/react'
-
 import { useLocation, useParams } from 'react-router-dom'
-import axiosInstance from '../../baseURL' // ✅ Import your custom axios instance
+import axiosInstance from '../../baseURL' 
 
 const TableRowManager = () => {
   const [rows, setRows] = useState([])

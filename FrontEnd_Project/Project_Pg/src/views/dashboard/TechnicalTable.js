@@ -16,7 +16,6 @@ import {
     CModalFooter,
     CRow,
 } from '@coreui/react'
-import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../baseURL'
@@ -94,7 +93,6 @@ const DatabaseTables = () => {
                     </CCard>
                 </CCol>
             </CRow>
-            {/* Modal for Creating Table */}
             <CModal visible={visible} onClose={() => setVisible(false)}>
                 <CModalHeader onClose={() => setVisible(false)}>
                     <CModalTitle>Create New Table in {dbName}</CModalTitle>

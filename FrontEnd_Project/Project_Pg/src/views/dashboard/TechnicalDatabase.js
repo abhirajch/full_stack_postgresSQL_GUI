@@ -25,7 +25,6 @@ const TechnicalDashboard = () => {
   const [databases, setDatabases] = useState([])
   const navigate = useNavigate()
 
-  // Fetch list of databases
   const fetchDatabases = async () => {
     try {
       const res = await axiosInstance.get('/sql/databases')
@@ -39,7 +38,6 @@ const TechnicalDashboard = () => {
     fetchDatabases()
   }, [])
 
-  // Create new database
   const handleCreateDatabase = async () => {
     try {
       const res = await axiosInstance.post('/sql/execute', {
@@ -60,7 +58,6 @@ const TechnicalDashboard = () => {
     }
   }
 
-  // Delete a database and its data table
   const handleDeleteDatabase = async (datname) => {
     const confirmDelete = window.confirm(
       `Are you sure you want to delete "${datname}" and its associated data?`
